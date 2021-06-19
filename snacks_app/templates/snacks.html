@@ -48,7 +48,10 @@
     {% for snack in all_snacks %}
     <table class="table table-borderless">
       <tr>
-        <td class="col-3"><a href="/snacks/{{snack.id}}">{{snack.title}}</a></td>
+        <td class="col-3">
+          <a href="/snacks/{{snack.id}}">{{snack.title}}</a><br>
+          <span>({{snack.likes.all.count}} likes, {{snack.dislikes.all.count}} dislikes)</span>
+        </td>
         <td class="col-3">by: <a href="/snacks/user/{{snack.creator.id}}">{{snack.creator.first_name}} {{snack.creator.last_name}}</a></td>
         {% if snack.creator.id == request.session.user_id %}
         <td><a href="/snacks/delete/{{snack.id}}">Delete this Snack</a></td>

@@ -29,40 +29,40 @@
     <label class="col-3 fw-bold">Description:</label>
     <p>{{this_snack.description}}</p>
     <div class="mb-5">
-      <!-- {% if not logged_user_like and not logged_user_dislike %} -->
-        <!-- <a href="dislike/{{this_idea.id}}" class="btn btn-primary" tabindex="-1" role="button">Dislike</a> -->
-        <!-- <a href="like/{{this_idea.id}}" class="btn btn-success" tabindex="-1" role="button">Like</a> -->
-      <!-- {% elif logged_user_like %} -->
-        <!-- <a href="dislike/{{this_idea.id}}" class="btn btn-primary" tabindex="-1" role="button">Dislike</a> -->
-      <!-- {% elif logged_user_dislike %} -->
-        <!-- <a href="like/{{this_idea.id}}" class="btn btn-success" tabindex="-1" role="button">Like</a> -->
-      <!-- {% endif %} -->
+      {% if not logged_user_like and not logged_user_dislike %}
+        <a href="dislike/{{this_snack.id}}" class="btn btn-primary" role="button">Dislike</a>
+        <a href="like/{{this_snack.id}}" class="btn btn-success" role="button">Like</a>
+      {% elif logged_user_like %}
+        <a href="dislike/{{this_snack.id}}" class="btn btn-primary" role="button">Dislike</a>
+      {% elif logged_user_dislike %}
+        <a href="like/{{this_snack.id}}" class="btn btn-success" role="button">Like</a>
+      {% endif %}
       {% if this_snack.creator.id == request.session.user_id %}
-        <a href="delete/{{this_snack.id}}" class="btn btn-danger" tabindex="-1" role="button">Delete this Snack</a>
+        <a href="delete/{{this_snack.id}}" class="btn btn-danger" role="button">Delete this Snack</a>
       {% endif %}
     </div>
-    <!-- <div class="row"> -->
-      <!-- <div class="col"> -->
-        <!-- <ul class="list-group"> -->
-          <!-- <li class="list-group-item fw-bold" style="border: none">Users who like:</li> -->
-          <!-- {% for like in likes %} -->
-            <!-- <li class="list-group-item" style="border: none">{{like.first_name}} {{like.last_name}}</li> -->
-          <!-- {% empty %} -->
-            <!-- <li class="list-group-item" style="border: none">No likes yet!</li> -->
-          <!-- {% endfor %} -->
-        <!-- </ul> -->
-      <!-- </div> -->
-      <!-- <div class="col"> -->
-        <!-- <ul class="list-group"> -->
-          <!-- <li class="list-group-item fw-bold" style="border: none">Users who dislike:</li> -->
-          <!-- {% for dislike in dislikes %} -->
-            <!-- <li class="list-group-item" style="border: none">{{dislike.first_name}} {{dislike.last_name}}</li> -->
-          <!-- {% empty %} -->
-            <!-- <li class="list-group-item" style="border: none">No dislikes yet!</li> -->
-          <!-- {% endfor %} -->
-        <!-- </ul> -->
-      <!-- </div> -->
-    <!-- </div> -->
+    <div class="row">
+      <div class="col">
+        <ul class="list-group">
+          <li class="list-group-item fw-bold" style="border: none">Users who like:</li>
+          {% for user in users_like %}
+            <li class="list-group-item" style="border: none"><a href="/snacks/user/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>
+          {% empty %}
+            <li class="list-group-item" style="border: none">No likes yet!</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col">
+        <ul class="list-group">
+          <li class="list-group-item fw-bold" style="border: none">Users who dislike:</li>
+          {% for user in users_dislike %}
+            <li class="list-group-item" style="border: none"><a href="/snacks/user/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>
+          {% empty %}
+            <li class="list-group-item" style="border: none">No dislikes yet!</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
 
   </div>
 </body>
