@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile: {{this_user.first_name}} {{this_user.last_name}}</title>
+
+  <!-- Bootstrap TAGS from (getbootstrap.com/docs) -->
+  <!-- CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap TAGS -->
+
+</head>
+
+<body>
+  <div class="container mb-5">
+    <div class="d-flex bd-highlight">
+      <p class="p-2 flex-grow-1 bd-highlight fs-3 fw-bold mt-5">User Profile</p>
+      <p class="p-3 bd-highlight"><a href="/snacks">Home</a></p>
+      <p class="p-3 flex-shrink bd-highlight">Logged in as <a href="/snacks/user/{{request.session.user_id}}">{{request.session.email}}</a></p>
+      <p class="p-3 flex-shrink bd-highlight"><a href="/">Log Out</a></p>
+    </div>
+    {% if messages %}
+      {% for message in messages %}
+        <p style="color: red;">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+    <p>Name: {{this_user.first_name}} {{this_user.last_name}}</p>
+    <p>Email: {{this_user.email}}</p>
+    {% if this_user.id == request.session.user_id %}
+    <p><a class="fw-bold" href="/snacks/user/edit">Edit User Profile</a></p>
+    {% endif %}
+
+    <div class="col">
+      {% if user_snacks %}
+      <ul class="list-group">
+        <li class="list-group-item fs-5 fw-bold" style="border: none">{{count_snacks}} Snack Idea(s):</li>
+        {% for idea in user_snacks %}
+          <li class="list-group-item" style="border: none"><a href="/snacks/{{idea.id}}">{{idea.title}}</a></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+        <p class="fw-bold">No Snack Ideas yet!</p>
+      {% endif %}
+    </div>
+    <!-- <div class="row"> -->
+      <!-- <div class="col"> -->
+        <!-- <ul class="list-group"> -->
+          <!-- <li class="list-group-item fw-bold" style="border: none">Users who like:</li> -->
+          <!-- {% for like in likes %} -->
+            <!-- <li class="list-group-item" style="border: none">{{like.first_name}} {{like.last_name}}</li> -->
+          <!-- {% empty %} -->
+            <!-- <li class="list-group-item" style="border: none">No likes yet!</li> -->
+          <!-- {% endfor %} -->
+        <!-- </ul> -->
+      <!-- </div> -->
+      <!-- <div class="col"> -->
+        <!-- <ul class="list-group"> -->
+          <!-- <li class="list-group-item fw-bold" style="border: none">Users who dislike:</li> -->
+          <!-- {% for dislike in dislikes %} -->
+            <!-- <li class="list-group-item" style="border: none">{{dislike.first_name}} {{dislike.last_name}}</li> -->
+          <!-- {% empty %} -->
+            <!-- <li class="list-group-item" style="border: none">No dislikes yet!</li> -->
+          <!-- {% endfor %} -->
+        <!-- </ul> -->
+      <!-- </div> -->
+    <!-- </div> -->
+
+  </div>
+</body>
+
+</html>
